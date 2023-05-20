@@ -1,6 +1,8 @@
 package cembo.devs.ecommerce.business.concretes;
 
 import cembo.devs.ecommerce.business.abstracts.ProductService;
+import cembo.devs.ecommerce.business.mappers.ProductsMapperService;
+import cembo.devs.ecommerce.business.responses.ProductGetResponse;
 import cembo.devs.ecommerce.business.rules.ProductBusinessRules;
 import cembo.devs.ecommerce.dataAccess.ProductRepository;
 import cembo.devs.ecommerce.entities.Product;
@@ -17,6 +19,7 @@ public class ProductManager implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductBusinessRules productBusinessRules;
+    private final ProductsMapperService productsMapperService;
 
     @Override
     public void create(Product product) {
@@ -52,13 +55,17 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<ProductGetResponse> getAll() {
         log.atInfo().log("Running getAll method in ProductManager");
 
         log.atInfo().log("Getting all products from database");
         List<Product> products =this.productRepository.findAll();
 
+        log.atInfo().log("Mapping Products To ProductGetResponse");
+        List<ProductGetResponse> responses = products.stream()
+                .map(this.productsMapperService::ProductToProductGetResponse).toList();
+
         log.atInfo().log("Returning all products");
-        return products;
+        return responses;
     }
 }

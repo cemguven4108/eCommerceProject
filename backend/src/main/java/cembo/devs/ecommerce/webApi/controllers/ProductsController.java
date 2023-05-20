@@ -1,12 +1,14 @@
 package cembo.devs.ecommerce.webApi.controllers;
 
 import cembo.devs.ecommerce.business.abstracts.ProductService;
+import cembo.devs.ecommerce.business.responses.ProductGetResponse;
 import cembo.devs.ecommerce.entities.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/products")
@@ -30,7 +32,7 @@ public class ProductsController {
     }
 
     @GetMapping(value = "/getAll")
-    public List<Product> getAll() {
+    public List<ProductGetResponse> getAll() {
         return this.productService.getAll();
     }
 }
