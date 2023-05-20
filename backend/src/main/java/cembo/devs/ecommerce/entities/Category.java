@@ -16,7 +16,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;

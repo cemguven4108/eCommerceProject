@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SubCategoryService {
     void create(SubCategory subCategory);
-    void delete(Long id);
-    SubCategory getById(Long id);
+    void delete(int id);
+    SubCategory getById(int id);
     List<SubCategory> getAll();
 }

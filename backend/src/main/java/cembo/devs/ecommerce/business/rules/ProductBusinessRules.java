@@ -1,7 +1,7 @@
 package cembo.devs.ecommerce.business.rules;
 
-import cembo.devs.ecommerce.core.utilities.exceptions.ProductNotFoundException;
-import cembo.devs.ecommerce.core.utilities.exceptions.StockLimitExceededException;
+import cembo.devs.ecommerce.core.utilities.exceptions.runtimeExceptions.ProductNotFoundException;
+import cembo.devs.ecommerce.core.utilities.exceptions.runtimeExceptions.StockLimitExceededException;
 import cembo.devs.ecommerce.dataAccess.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

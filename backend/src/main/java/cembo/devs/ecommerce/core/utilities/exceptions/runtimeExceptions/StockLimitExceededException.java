@@ -1,4 +1,4 @@
-package cembo.devs.ecommerce.core.utilities.exceptions;
+package cembo.devs.ecommerce.core.utilities.exceptions.runtimeExceptions;
 
 public class StockLimitExceededException extends RuntimeException {
 

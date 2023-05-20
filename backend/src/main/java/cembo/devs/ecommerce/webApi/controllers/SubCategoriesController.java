@@ -20,12 +20,12 @@ public class SubCategoriesController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable int id) {
         this.subCategoryService.delete(id);
     }
 
     @GetMapping("/get/{id}")
-    public SubCategory get(@PathVariable Long id) {
+    public SubCategory get(@PathVariable int id) {
         return this.subCategoryService.getById(id);
     }
 

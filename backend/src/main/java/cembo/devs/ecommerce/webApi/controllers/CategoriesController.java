@@ -20,12 +20,12 @@ public class CategoriesController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable int id) {
         this.categoryService.delete(id);
     }
 
     @GetMapping("/get/{id}")
-    public Category get(@PathVariable Long id) {
+    public Category get(@PathVariable int id) {
         return this.categoryService.getById(id);
     }
 

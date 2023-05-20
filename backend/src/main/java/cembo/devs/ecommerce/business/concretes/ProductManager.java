@@ -26,8 +26,6 @@ public class ProductManager implements ProductService {
 
         log.atInfo().log("Inserting product to database");
         this.productRepository.save(product);
-
-        log.atInfo().log("Completed create method in ProductManager");
     }
 
     @Override
@@ -38,8 +36,6 @@ public class ProductManager implements ProductService {
 
         log.atInfo().log("Deleting product from database");
         this.productRepository.deleteById(id);
-
-        log.atInfo().log("Completed delete method in ProductManager");
     }
 
     @Override
