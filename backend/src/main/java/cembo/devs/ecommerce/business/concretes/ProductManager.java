@@ -25,8 +25,6 @@ public class ProductManager implements ProductService {
     public void create(Product product) {
         log.atInfo().log("Running create method in ProductManager");
 
-        this.productBusinessRules.checkIfProductStocksAreFull(product.getStock());
-
         log.atInfo().log("Inserting product to database");
         this.productRepository.save(product);
     }
@@ -42,7 +40,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public Product getById(int id) {
+    public ProductGetResponse getById(int id) {
         log.atInfo().log("Running getById method in ProductManager");
 
         this.productBusinessRules.checkIfProductExists(id);
@@ -50,8 +48,11 @@ public class ProductManager implements ProductService {
         log.atInfo().log("Getting product from database");
         Product product = this.productRepository.getById(id);
 
+        log.atInfo().log("Mapping Product To ProductGetResponse");
+        ProductGetResponse response = this.productsMapperService.ProductToProductGetResponse(product);
+
         log.atInfo().log("Returning product");
-        return product;
+        return response;
     }
 
     @Override

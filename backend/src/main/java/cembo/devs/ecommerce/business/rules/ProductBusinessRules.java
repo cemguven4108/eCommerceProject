@@ -1,7 +1,6 @@
 package cembo.devs.ecommerce.business.rules;
 
 import cembo.devs.ecommerce.core.utilities.exceptions.runtimeExceptions.ProductNotFoundException;
-import cembo.devs.ecommerce.core.utilities.exceptions.runtimeExceptions.StockLimitExceededException;
 import cembo.devs.ecommerce.dataAccess.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,17 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductBusinessRules {
 
-    private final int PRODUCT_STOCK_LIMIT = 50;
-
     private final ProductRepository productRepository;
-
-    public void checkIfProductStocksAreFull(int stock) {
-        log.atInfo().log("Checking if product stocks are full");
-
-        if (stock >= PRODUCT_STOCK_LIMIT) {
-            throw new StockLimitExceededException("Product stocks cannot be more than " + PRODUCT_STOCK_LIMIT);
-        }
-    }
 
     public void checkIfProductExists(int id) {
         log.atInfo().log("Checking if product exists");
