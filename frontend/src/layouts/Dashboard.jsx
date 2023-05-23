@@ -6,6 +6,7 @@ import ProductDetail from '../pages/ProductDetail'
 import { Grid } from "semantic-ui-react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import ProductAdd from "../pages/ProductAdd";
 
 export default function Dashboard() {
   return (
@@ -20,8 +21,9 @@ export default function Dashboard() {
             <Routes>
               <Route exact path="/" />
               <Route exact path="/products" Component={ProductList} />
-              <Route exact path="/cart" Component={CartDetail} />
               <Route path="/products/:id" Component={ProductDetail} />
+              <Route path="/cart" Component={CartDetail} />
+              <Route path="/product/add" Component={ProductAdd} />
             </Routes>
           </Grid.Column>
         </Grid.Row>
