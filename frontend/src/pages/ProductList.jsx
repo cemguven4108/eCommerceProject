@@ -63,6 +63,21 @@ export default function ProductList() {
     );
   }
 
+  const productList = products.map((product) => (
+    <Table.Row key={product.id}>
+      <Table.Cell>
+        <Link to={`/products/${product.id}`}>{product.name}</Link>
+      </Table.Cell>
+      <Table.Cell>{product.price}</Table.Cell>
+      <Table.Cell>{product.stock}</Table.Cell>
+      <Table.Cell>{product.subCategory}</Table.Cell>
+      <Table.Cell>{product.category}</Table.Cell>
+      <Table.Cell>
+        <Button onClick={() => addToCartHandler(product)}>Add To Cart</Button>
+      </Table.Cell>
+    </Table.Row>
+  ));
+
   return (
     <Fragment>
       <Table celled>
@@ -77,24 +92,7 @@ export default function ProductList() {
           </Table.Row>
         </Table.Header>
 
-        <Table.Body>
-          {products.map((product) => (
-            <Table.Row key={product.id}>
-              <Table.Cell>
-                <Link to={`/products/${product.id}`}>{product.name}</Link>
-              </Table.Cell>
-              <Table.Cell>{product.price}</Table.Cell>
-              <Table.Cell>{product.stock}</Table.Cell>
-              <Table.Cell>{product.subCategory}</Table.Cell>
-              <Table.Cell>{product.category}</Table.Cell>
-              <Table.Cell>
-                <Button onClick={() => addToCartHandler(product)}>
-                  Add To Cart
-                </Button>
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
+        <Table.Body>{productList}</Table.Body>
 
         <Table.Footer>
           <Table.Row>
