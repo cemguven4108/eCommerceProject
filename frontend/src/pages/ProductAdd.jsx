@@ -1,7 +1,8 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { Fragment } from "react";
 import * as Yup from "yup";
-import { Button, FormField, Label } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
+import DevsTextInput from "../utilities/customFormControls/DevsTextInput";
 
 export default function ProductAdd() {
   const initialValues = { name: "", price: 0 };
@@ -22,24 +23,8 @@ export default function ProductAdd() {
         onSubmit={onSubmitHandler}
       >
         <Form className="ui form">
-          <FormField>
-            <Field name="name" placeholder="Name"></Field>
-            <ErrorMessage
-              name="name"
-              render={(error) => (
-                <Label pointing basic color="red" content={error}></Label>
-              )}
-            />
-          </FormField>
-          <FormField>
-            <Field name="price" placeholder="Price"></Field>
-            <ErrorMessage
-              name="price"
-              render={(error) => (
-                <Label pointing basic color="red" content={error}></Label>
-              )}
-            />
-          </FormField>
+          <DevsTextInput name="name" placeholder="Product Name" />
+          <DevsTextInput name="price" placeholder="Price" />
           <Button color="green" type="submit">
             Submit
           </Button>

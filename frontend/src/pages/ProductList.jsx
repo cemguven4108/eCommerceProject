@@ -1,23 +1,66 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Button, Icon, Menu, Table } from "semantic-ui-react";
-import ProductService from "../services/productService";
+import { Button, Icon, Menu, Table, Message } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/actions/cartAction";
 import { toast } from "react-toastify";
+import Loading from "../layouts/Loading";
 
 export default function ProductList() {
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
-    let productService = new ProductService();
-    productService.getProducts().then((result) => setProducts(result.data));
+    const fetchProducts = async () => {
+      const response = await fetch(
+        "http://localhost:8080/api/v1/products/getAll"
+      );
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      const responseData = await response.json();
+      const loadedMeals = [];
+
+      for (const key in responseData) {
+        loadedMeals.push({
+          id: key,
+          name: responseData[key].name,
+          price: responseData[key].price,
+          stock: responseData[key].stock,
+          subCategory: responseData[key].subCategory.name,
+          category: responseData[key].subCategory.category.name,
+        });
+      }
+
+      setProducts(loadedMeals);
+      setIsLoading(false);
+    };
+
+    fetchProducts().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
 
   function addToCartHandler(product) {
     dispatch(addToCart(product));
-    toast.success(`${product.name} Added To Cart`)
+    toast.success(`${product.name} Added To Cart`);
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (httpError) {
+    return (
+      <Message negative>
+        <Message.Header>{httpError}</Message.Header>
+      </Message>
+    );
   }
 
   return (
@@ -42,9 +85,13 @@ export default function ProductList() {
               </Table.Cell>
               <Table.Cell>{product.price}</Table.Cell>
               <Table.Cell>{product.stock}</Table.Cell>
-              <Table.Cell>{product.subCategory.name}</Table.Cell>
-              <Table.Cell>{product.subCategory.category.name}</Table.Cell>
-              <Table.Cell><Button onClick={() => addToCartHandler(product)}>Add To Cart</Button></Table.Cell>
+              <Table.Cell>{product.subCategory}</Table.Cell>
+              <Table.Cell>{product.category}</Table.Cell>
+              <Table.Cell>
+                <Button onClick={() => addToCartHandler(product)}>
+                  Add To Cart
+                </Button>
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
